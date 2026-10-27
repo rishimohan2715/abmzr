@@ -237,16 +237,16 @@ which `vercel.json` rewrites to the function.
 
 - `api/index.py` — serverless entry; imports the FastAPI `app` from `backend/`.
 - `requirements.txt` (root) — Python deps Vercel installs for the function.
-- `vercel.json` — builds `frontend/`, serves `frontend/dist`, and rewrites `/api/*` → the function.
+- `vercel.json` — builds `frontend/` (served as the static site), and routes `/api/*` to the Python function while everything else falls back to the SPA's `index.html`.
 
-**To deploy:** import the GitHub repo at [vercel.com/new](https://vercel.com/new) and click **Deploy** (the settings come from `vercel.json`, so no manual config). Or from the repo root: `npx vercel --prod`.
+**To deploy:** import the GitHub repo at [vercel.com/new](https://vercel.com/new) and click **Deploy** (the settings come from `vercel.json`, so no manual config). Or from the repo root: `npx vercel --prod`. **Live now** at the link below.
 
 > An optional **Render** path for the backend alone is also included (`render.yaml`, `backend/Procfile`) if you prefer a split deploy; set `VITE_API_BASE` on the frontend to the Render URL in that case.
 
 | Component | Link |
 |---|---|
 | GitHub repo | https://github.com/rishimohan2715/abmzr |
-| Live app (Vercel) | _`<add after deploy>`_ |
+| Live app (Vercel) | https://grid-bricks-assignment-xi.vercel.app |
 
 ---
 

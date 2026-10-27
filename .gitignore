@@ -27,3 +27,4 @@ frontend/dist/
 
 # TS build info
 frontend/*.tsbuildinfo
+.vercel
