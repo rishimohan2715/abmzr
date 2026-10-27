@@ -1,0 +1,11 @@
+# One-click deploy for the backend on Render (https://render.com).
+# The frontend deploys to Vercel as a static Vite build (see README).
+services:
+  - type: web
+    name: wind-forecast-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    plan: free

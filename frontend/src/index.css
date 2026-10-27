@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(1200px 800px at 80% -10%, #122034 0%, #0a0e17 55%);
+  background-attachment: fixed;
+  color: #e5edf7;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* charts must never force a sideways page scroll */
+}
+
+/* Visible keyboard focus everywhere, without a mouse-click ring. */
+:focus-visible {
+  outline: 2px solid #2b95d6;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Recharts sets an inline cursor on the brush; keep it readable on dark. */
+.recharts-brush-slide {
+  fill: #2b95d6;
+  fill-opacity: 0.12;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Thin, desk-style scrollbars. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f2b3e;
+  border-radius: 8px;
+}

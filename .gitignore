@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Node
+node_modules/
+frontend/dist/
+.vite/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Docker
+*.pid
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# TS build info
+frontend/*.tsbuildinfo
