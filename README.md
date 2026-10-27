@@ -157,10 +157,13 @@ The API also returns **peak error** (largest single-period miss + its timestamp)
 │   ├── Dockerfile               # Multi-stage build → Nginx
 │   ├── nginx.conf               # Serves SPA + proxies /api → backend
 │   ├── vite.config.ts           # Dev proxy to :8000
-│   ├── tailwind.config.js       # Validated telemetry palette
-│   └── vercel.json
-├── docker-compose.yml           # One-command full stack
-├── render.yaml                  # Backend deploy config
+│   └── tailwind.config.js       # Validated telemetry palette
+├── api/
+│   └── index.py                 # Vercel serverless entry (imports backend app)
+├── vercel.json                  # Full-stack Vercel config (static + Python fn)
+├── requirements.txt             # Python deps for the Vercel function
+├── docker-compose.yml           # One-command full stack (local)
+├── render.yaml                  # Optional split-deploy: backend on Render
 └── README.md
 ```
 
@@ -227,13 +230,23 @@ Coverage includes the invariants a reviewer should care about: **RMSE ≥ MAE** 
 
 ## 6. Deployment
 
-- **Frontend → Vercel.** Import the repo, set **Root Directory** to `frontend`. Vercel auto-detects Vite. Set an env var `VITE_API_BASE` to the deployed backend URL (e.g. `https://wind-forecast-api.onrender.com`).
-- **Backend → Render / Heroku.** `render.yaml` is included (root dir `backend`). On Heroku, the `Procfile` runs `uvicorn main:app --host 0.0.0.0 --port $PORT`.
+The repo is wired to deploy the **whole app on Vercel** in one shot — the Vite
+frontend as static assets, and the FastAPI backend as a Python serverless
+function. No `VITE_API_BASE` is needed: the frontend calls same-origin `/api/*`,
+which `vercel.json` rewrites to the function.
 
-| Component | Live URL |
+- `api/index.py` — serverless entry; imports the FastAPI `app` from `backend/`.
+- `requirements.txt` (root) — Python deps Vercel installs for the function.
+- `vercel.json` — builds `frontend/`, serves `frontend/dist`, and rewrites `/api/*` → the function.
+
+**To deploy:** import the GitHub repo at [vercel.com/new](https://vercel.com/new) and click **Deploy** (the settings come from `vercel.json`, so no manual config). Or from the repo root: `npx vercel --prod`.
+
+> An optional **Render** path for the backend alone is also included (`render.yaml`, `backend/Procfile`) if you prefer a split deploy; set `VITE_API_BASE` on the frontend to the Render URL in that case.
+
+| Component | Link |
 |---|---|
-| Frontend (Vercel) | _`<add after deploy>`_ |
-| Backend (Render/Heroku) | _`<add after deploy>`_ |
+| GitHub repo | https://github.com/rishimohan2715/abmzr |
+| Live app (Vercel) | _`<add after deploy>`_ |
 
 ---
 

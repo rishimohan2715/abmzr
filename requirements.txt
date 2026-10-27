@@ -1,0 +1,6 @@
+# Root requirements for Vercel's Python serverless runtime (api/index.py).
+# Mirrors backend/requirements.txt. Uvicorn is not needed on Vercel (it provides
+# the ASGI server), but is harmless and keeps parity with local/Docker.
+fastapi==0.115.6
+httpx==0.28.1
+pydantic==2.10.4
